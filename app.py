@@ -474,7 +474,7 @@ def main():
         route_stats_df = load_route_statistics()
     
     # Header
-    st.title("🚕 NYC Taxi Fare & Tip Predictor")
+    st.title("NYC Taxi Fare & Tip Predictor")
     st.markdown("""
     **Machine Learning basierte Vorhersage von Fahrtpreisen und Trinkgeldern**
     
@@ -867,7 +867,7 @@ def main():
     
     # Footer
     st.divider()
-    st.caption("📦 Modelle & Daten werden von [Hugging Face](https://huggingface.co/dnltre/taxi-nyc-models) geladen · HFT Stuttgart · Data Analytics WiSe 25/26")
+    st.caption("Modelle & Daten werden von [Hugging Face](https://huggingface.co/dnltre/taxi-nyc-models) geladen · HFT Stuttgart · Data Analytics WiSe 25/26")
 
 # =============================================================================
 # RUN APP
