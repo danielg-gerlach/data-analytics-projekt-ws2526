@@ -37,7 +37,6 @@ HF_REPO_ID = "dnltre/taxi-nyc-models"
 
 st.set_page_config(
     page_title="NYC Taxi Predictor",
-    page_icon="🚕",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -75,13 +74,11 @@ def load_models():
             with open(MODELS_PATH / 'tip_features.pkl', 'rb') as f:
                 tip_features = pickle.load(f)
             return fare_model, fare_features, tip_model, tip_features
-        except Exception as e:
-            st.warning(f"Lokale Modelle fehlerhaft, lade von Hugging Face: {e}")
+        except Exception:
+            pass  # Fallback zu Hugging Face
     
     # Download von Hugging Face (für Deployment / Streamlit Cloud)
     try:
-        st.info("Lade Modelle von Hugging Face Hub...")
-        
         fare_model_path = hf_hub_download(repo_id=HF_REPO_ID, filename="fare_model.pkl")
         fare_features_path = hf_hub_download(repo_id=HF_REPO_ID, filename="fare_features.pkl")
         tip_model_path = hf_hub_download(repo_id=HF_REPO_ID, filename="tip_model.pkl")
@@ -467,20 +464,21 @@ def predict_fare_and_tip(
 # =============================================================================
 
 def main():
-    # Lade Daten und Modelle
-    fare_model, fare_features, tip_model, tip_features = load_models()
-    fare_info, tip_info = load_model_info()
-    zones_df = load_zone_data()
-    weather_df = load_weather_data()
-    top_locations = load_top_locations()
-    route_stats_df = load_route_statistics()
+    # Lade Daten und Modelle (mit Spinner beim ersten Laden)
+    with st.spinner("Lade Modelle und Daten..."):
+        fare_model, fare_features, tip_model, tip_features = load_models()
+        fare_info, tip_info = load_model_info()
+        zones_df = load_zone_data()
+        weather_df = load_weather_data()
+        top_locations = load_top_locations()
+        route_stats_df = load_route_statistics()
     
     # Header
-    st.title("NYC Taxi Fare & Tip Predictor")
+    st.title("🚕 NYC Taxi Fare & Tip Predictor")
     st.markdown("""
     **Machine Learning basierte Vorhersage von Fahrtpreisen und Trinkgeldern**
     
-    Diese Anwendung nutzt zwei trainierte Regressionsmodelle:
+    Diese Anwendung nutzt zwei trainierte Random Forest Modelle:
     - **Fare Model**: Vorhersage des Fahrtpreises basierend auf Route, Zeit und Verkehrslage
     - **Tip Model**: Vorhersage des Trinkgelds unter Berücksichtigung von Wetterdaten
     """)
@@ -866,6 +864,10 @@ def main():
         - **Für Fahrgäste:** Transparenz über erwartete Kosten
         - **Für Analysten:** Demonstration von ML-Pipelines in Produktion
         """)
+    
+    # Footer
+    st.divider()
+    st.caption("📦 Modelle & Daten werden von [Hugging Face](https://huggingface.co/dnltre/taxi-nyc-models) geladen · HFT Stuttgart · Data Analytics WiSe 25/26")
 
 # =============================================================================
 # RUN APP
