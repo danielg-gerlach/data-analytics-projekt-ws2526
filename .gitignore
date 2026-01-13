@@ -1,0 +1,32 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local model files (loaded from HuggingFace in production)
+models/final/*.pkl
+
+# Large data files (loaded from HuggingFace in production)
+data/*.parquet
+data/*.csv
+weather/*.parquet
+
