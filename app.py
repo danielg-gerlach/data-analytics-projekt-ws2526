@@ -822,7 +822,7 @@ def main():
                 st.markdown("**Performance (Testdaten):**")
                 st.metric("MAE", "$1.33")
                 st.metric("RMSE", f"${float(tip_info.get('test_rmse', 0)):.2f}" if tip_info else "$0.00")
-                st.metric("R²", "0.5800")
+                st.metric("R²", "0.5811")
             
             st.divider()
             st.markdown("""
