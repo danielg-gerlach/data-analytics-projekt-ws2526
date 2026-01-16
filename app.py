@@ -820,9 +820,9 @@ def main():
                 st.write(f"- Test Samples: {tip_info.get('test_samples', 'N/A'):,}" if tip_info else "- Test Samples: N/A")
                 st.divider()
                 st.markdown("**Performance (Testdaten):**")
-                st.metric("MAE", "$1.33")
+                st.metric("MAE", "$1.32")
                 st.metric("RMSE", f"${float(tip_info.get('test_rmse', 0)):.2f}" if tip_info else "$0.00")
-                st.metric("R²", "0.5811")
+                st.metric("R²", "0.5916")
             
             st.divider()
             st.markdown("""
